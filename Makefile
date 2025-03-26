@@ -2,6 +2,7 @@ GOHOSTOS:=$(shell go env GOHOSTOS)
 GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
 SERVER_NAME="server"
+BIN_NAME="server"
 
 #ifeq ($(GOHOSTOS), windows)
 #	#the `find.exe` is different from `find` in bash/shell.
@@ -52,7 +53,13 @@ api:
 .PHONY: build
 # build
 build:
-	mkdir -p bin/ && go build -ldflags "-X main.Version=$(VERSION) -X main.Name=$(SERVER_NAME)" -o ./bin/ ./...
+	mkdir -p bin/ && CGO_ENABLED=0 go build -mod=readonly -ldflags "-X main.Version=$(VERSION) -X main.Name=$(SERVER_NAME)" -o ./bin/$(BIN_NAME) ./cmd/$(BIN_NAME)
+
+.PHONY: build-linux
+# build-linux
+build-linux:
+	mkdir -p bin/ && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -ldflags "-X main.Version=$(VERSION) -X main.Name=$(SERVER_NAME)" -o ./bin/$(BIN_NAME) ./cmd/$(BIN_NAME)
+
 
 .PHONY: generate
 # generate

@@ -31,4 +31,4 @@ VOLUME /data/conf
 
 ENTRYPOINT ["server"]
 
-CMD ["server", "-conf", "/data/conf/config.yaml"]
+CMD ["-conf", "/data/conf/config.yaml"]

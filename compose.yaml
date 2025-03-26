@@ -1,0 +1,17 @@
+services:
+  service:
+    image: server
+    volumes:
+      - ./configs:/data/conf
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - GIN_MODE=release
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "4m"
+        max-file: "24"
