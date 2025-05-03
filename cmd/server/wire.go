@@ -8,9 +8,16 @@ package main
 import (
 	"github.com/flyge1995/kratos-extend/danta"
 	"github.com/flyge1995/kratos-extend/log/zap"
+	"github.com/go-kratos/kratos-layout/internal/infra"
 	"github.com/go-kratos/kratos-layout/internal/server"
+	"github.com/go-kratos/kratos-layout/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/google/wire"
+)
+
+var (
+	serviceProviderSet = service.ProviderSet
+	infraProviderSet   = infra.ProviderSet
 )
 
 // wireApp init kratos application.
@@ -28,6 +35,8 @@ func wireApp() (*kratos.App, func(), error) {
 
 		// 服务
 		server.ProviderSet,
+		//serviceProviderSet,
+		//infraProviderSet,
 
 		// app
 		newApp,

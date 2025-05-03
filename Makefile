@@ -55,9 +55,9 @@ api:
 build:
 	mkdir -p bin/ && CGO_ENABLED=0 go build -mod=readonly -ldflags "-X main.Version=$(VERSION) -X main.Name=$(SERVER_NAME)" -o ./bin/$(BIN_NAME) ./cmd/$(BIN_NAME)
 
-.PHONY: build-linux
+.PHONY: linux
 # build-linux
-build-linux:
+linux:
 	mkdir -p bin/ && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -ldflags "-X main.Version=$(VERSION) -X main.Name=$(SERVER_NAME)" -o ./bin/$(BIN_NAME) ./cmd/$(BIN_NAME)
 
 

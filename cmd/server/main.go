@@ -13,6 +13,7 @@ import (
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"os"
 	"syscall"
+	"time"
 
 	_ "go.uber.org/automaxprocs"
 )
@@ -60,6 +61,7 @@ func newApp(ctx danta.Context, logger log.Logger, gs *grpc.Server, hs *http.Serv
 		kratos.Logger(logger),
 		kratos.Signal(syscall.SIGINT, syscall.SIGTERM),
 		kratos.Context(ctx.Context),
+		kratos.StopTimeout(time.Second*10),
 		kratos.BeforeStart(func(ctx context.Context) error {
 			helper.Info("服务器初始化完成，准备启动")
 			return nil
@@ -70,7 +72,6 @@ func newApp(ctx danta.Context, logger log.Logger, gs *grpc.Server, hs *http.Serv
 		}),
 		kratos.BeforeStop(func(_ context.Context) error {
 			helper.Info("服务器即将关闭")
-			ctx.CancelFunc()
 			return nil
 		}),
 		kratos.AfterStop(func(ctx context.Context) error {

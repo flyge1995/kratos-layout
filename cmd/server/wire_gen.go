@@ -9,7 +9,9 @@ package main
 import (
 	"github.com/flyge1995/kratos-extend/danta"
 	"github.com/flyge1995/kratos-extend/log/zap"
+	"github.com/go-kratos/kratos-layout/internal/infra"
 	"github.com/go-kratos/kratos-layout/internal/server"
+	"github.com/go-kratos/kratos-layout/internal/service"
 	"github.com/go-kratos/kratos/v2"
 )
 
@@ -46,3 +48,10 @@ func wireApp() (*kratos.App, func(), error) {
 		cleanup()
 	}, nil
 }
+
+// wire.go:
+
+var (
+	serviceProviderSet = service.ProviderSet
+	infraProviderSet   = infra.ProviderSet
+)
